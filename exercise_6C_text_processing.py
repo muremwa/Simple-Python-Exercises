@@ -3,11 +3,16 @@
 # Unbalanced or wrongly ordered braces should return -1
 #
 # Iterating over input string is one way to solve this, another is to use regular expressions
+import re
 
 
 def max_nested_braces(string_):
     braces = []
     nesting = 0
+
+    # eliminate empty braces
+    if re.search(r'{}', string_):
+        return -1
 
     for char in string_:
         if char == '{' or char == '}':
@@ -54,4 +59,10 @@ print(max_nested_braces('a*b+{}'))
 print(max_nested_braces('}a+b{'))
 # -1
 print(max_nested_braces('a*b{'))
+# -1
+
+# bonus: empty braces, i.e {} should return -1
+print(max_nested_braces('a*b+{}'))
+# -1
+print(max_nested_braces('a*{b+{}+c*{e*3.14}}'))
 # -1
