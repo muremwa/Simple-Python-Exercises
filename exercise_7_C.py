@@ -11,7 +11,6 @@ def longest_word(*args):
     except IndexError:
         pass
 
-    words = None
     with open(path, 'r') as f:
         words = f.read()
 
