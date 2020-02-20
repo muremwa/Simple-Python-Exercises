@@ -3,28 +3,44 @@
 # Unbalanced or wrongly ordered braces should return -1
 #
 # Iterating over input string is one way to solve this, another is to use regular expressions
-import re
 
 
-def max_nested_braces(string):
-    opening_brace = 0
-    closing_brace = 0
-    nest = 0
+def max_nested_braces(string_):
+    braces = []
+    nesting = 0
 
-    kims = re.findall(r'\{\w*\}', string, re.I)
-    print(kims)
+    for char in string_:
+        if char == '{' or char == '}':
+            braces.append(char)
 
-    # for char in string:
-    #     if char == '{':
-    #         opening_brace += 1
-    #     elif char == '}':
-    #         closing_brace += 1
-    #
-    #     if closing_brace > opening_brace:
-    #         return -1
-    #
-    # if closing_brace != opening_brace:
-    #     return -1
+    # unbalanced eliminated
+    if len(braces) % 2 != 0:
+        return -1
+
+    # wrongly ordered eliminated
+    half = braces[:int(len(braces)/2)]
+    if half.count('}') > half.count('{'):
+        return -1
+
+    # try to follow this logic
+    total_ride = len(braces) / 2  # the total distance of the list 'braces' we shall travel
+    ball_gum = 0
+
+    while total_ride > 0:
+        char = braces[ball_gum]
+        ball_gum += 1
+
+        if char == '{':
+            # if it's an opening curly brace increment nesting depth
+            nesting += 1
+            # total ride decremented only when it's a '{'
+            total_ride -= 1
+
+        elif char == '}':
+            # if it closes decrement depth by 1 and leave total ride the same!
+            nesting -= 1
+
+    return nesting
 
 
 print(max_nested_braces('a*b'))
