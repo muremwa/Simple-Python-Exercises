@@ -11,10 +11,7 @@ def main():
     nums = re.findall(r'\d+', text, re.I | re.M)
 
     # add all numbers and return result
-    nums = [int(num) for num in nums]
-    total = 0
-    for num in nums:
-        total += int(num)
+    total = sum([int(num) for num in nums])
 
     print(total)
 
